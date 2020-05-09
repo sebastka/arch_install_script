@@ -4,6 +4,8 @@
 * [ArchWiki - Installation guide](https://wiki.archlinux.org/index.php/installation_guide)
 * [ArchWiki - General Recommendations](https://wiki.archlinux.org/index.php/General_recommendations)
 
+Selects the best mirrors from Norway, Sweden and Denmark. Activates kde-unstable, testing, community-testing.
+
 ## Variables (1.sh)
 * DISK=/dev/sda
 * BOOT="/dev/sda2"
