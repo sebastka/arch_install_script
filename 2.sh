@@ -27,7 +27,7 @@ read -n 1 -p "Host..."
 echo $HOSTNAME >> /etc/hostname
 vim /etc/hosts
 
-# GUI and toolks
+# GUI and tools
 read -n 1 -p "DE and tools..."
 mv -t "/home/${USER}/" /root/3.sh /root/.zshrc /root/.p10k.zsh
 chown $USER:$USER "/home/${USER}/3.sh" "/home/${USER}/.zshrc" "/home/${USER}/.p10k.zsh"
