@@ -1,14 +1,16 @@
 #!/bin/sh
 
-USER=""
 DISK="/dev/sda"
 WINDOWS="${DISK}4"
 HOSTNAME="archpc"
 
-# Users
-read -n 1 -p "Users..."
+# Root
+read -n 1 -p "Root, sudo and user..."
 passwd
 visudo
+
+# User
+read -p 'Username: ' USER
 useradd -D -s/bin/zsh
 useradd -m -G wheel $USER
 passwd $USER
