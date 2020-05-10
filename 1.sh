@@ -1,10 +1,10 @@
 #!/bin/sh
 
+## Marks as executable for all
+chmod 755 /root/arch_install_script/*.sh
+
 ## Variables
-DISK="/dev/sda"
-BOOT="${DISK}2"
-SWAP="${DISK}5"
-ROOT="${DISK}6"
+source /root/arch_install_script/vars.sh
 
 ## Set up install system
 read -n 1 -p "Network and time..."
@@ -15,7 +15,7 @@ timedatectl set-ntp true
 # Setting up mirrors
 read -n 1 -p "Setting up mirrors and repos..."
 pacman -S reflector
-reflector --country Norway --country Sweden --country Denmark --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+reflector --country ${COUNTRY[0]} --country ${COUNTRY[1]} --country ${COUNTRY[2]} --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
 
 cat <<'EOF' >> /etc/pacman.conf
@@ -26,17 +26,11 @@ cat <<'EOF' >> /etc/pacman.conf
 ## Sublime-text | stable or dev
 ## Key: curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
 #[sublime-text]
-#Server = https://download.sublimetext.com/arch/dev/x86_64
+#Server = https://download.sublimetext.com/arch/stable/x86_64
 EOF
 
 vim /etc/pacman.conf
 pacman -Sy
-
-## Get script
-read -n 1 -p "Getting script..."
-pacman -S git
-git clone https://github.com/sebastka/arch_install_script.git /root
-chmod +x /root/arch_install_script/2.sh /root/arch_install_script/3.sh
 
 ## Partitionning
 read -n 1 -p "Partitioning"
@@ -54,7 +48,7 @@ rm -rI /mnt/boot/EFI/GRUB /mnt/boot/grub /mnt/boot/initramfs-linux-fallback.img 
 
 ## Installing base system
 read -n 1 -p "Installing base system..."
-pacstrap /mnt base base-devel linux linux-firmware zsh networkmanager vim nano man-pages man-db intel-ucode os-prober grub efibootmgr ntfs-3g wget reflector
+pacstrap /mnt base base-devel linux linux-firmware zsh networkmanager vim nano man-pages man-db intel-ucode os-prober grub efibootmgr ntfs-3g wget reflector git
 genfstab -U /mnt >> /mnt/etc/fstab
 
 for file in "/etc/pacman.conf" "/etc/pacman.d/mirrorlist"
@@ -65,11 +59,13 @@ done
 
 ## Chrooting into new system
 read -n 1 -p "Chrooting..."
-mv -t /mnt/root /root/arch_install_script/2.sh /root/arch_install_script/3.sh /root/arch_install_script/.zshrc /root/arch_install_script/.p10k.zsh
+cp -a /root/arch_install_script /mnt/root
 arch-chroot /mnt sh /root/2.sh
-rm /mnt/root/2.sh
+rm -rf /mnt/root/arch_install_script
 
 ## umount
 read -n 1 -p "Umounting..."
 umount /mnt/boot
 umount /mnt
+
+exit 0

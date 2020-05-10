@@ -1,8 +1,7 @@
 #!/bin/sh
 
-DISK="/dev/sda"
-WINDOWS="${DISK}4"
-HOSTNAME="archpc"
+## Variables
+source /root/arch_install_script/vars.sh
 
 # Root
 read -n 1 -p "Root, sudo and user..."
@@ -10,7 +9,6 @@ passwd
 visudo
 
 # User
-read -p 'Username: ' USER
 useradd -D -s/bin/zsh
 useradd -m -G wheel $USER
 passwd $USER
@@ -31,18 +29,16 @@ vim /etc/hosts
 
 # GUI and tools
 read -n 1 -p "DE and tools..."
-mv -t "/home/${USER}/" /root/3.sh /root/.zshrc /root/.p10k.zsh
-chown $USER:$USER "/home/${USER}/3.sh" "/home/${USER}/.zshrc" "/home/${USER}/.p10k.zsh"
-chmod +x "/home/${USER}/3.sh"
-su -c "sh /home/${USER}/3.sh" $USER
-rm "/home/${USER}/3.sh"
+mv -t "/home/${USER}/" /root/.zshrc /root/.p10k.zsh
+chown $USER:$USER "/home/${USER}/.zshrc" "/home/${USER}/.p10k.zsh"
+su -c "sh /root/arch_install_script/3.sh" $USER
 
 # Set SDDM keyboard
 localectl set-x11-keymap no
 
 ## Bootloader
 read -n 1 -p "Bootloader..."
-mount $WINDOWS /mnt
+mount $SECOND_OS /mnt
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 umount /mnt
