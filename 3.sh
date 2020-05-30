@@ -8,10 +8,9 @@ curl https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pikaur >> PKGBUILD
 makepkg -csi
 cd ~
 
-# Update, install fonts, bluetooth
+# Update, install fonts, bluetooth and headset
 pikaur -Syu
-pikaur -S gnu-free-fonts noto-fonts ttf-bitstream-vera ttf-croscore ttf-dejavu ttf-droid ttf-ibm-plex ttf-liberation ttf-meslo-nerd-font-powerlevel10k powerline-fonts
-pikaur -S pulseaudio-alsa pulseaudio-bluetooth bluez-utils
+pikaur -S gnu-free-fonts noto-fonts ttf-bitstream-vera ttf-croscore ttf-dejavu ttf-droid ttf-ibm-plex ttf-liberation ttf-meslo-nerd-font-powerlevel10k powerline-fonts pulseaudio-alsa pulseaudio-bluetooth bluez-utils
 
 # zsh setup
 read -n 1 -p "zsh..."

@@ -43,6 +43,18 @@ grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 umount /mnt
 
+# Bluetooth and headset
+read -n 1 -p "Bluetooth and headset..."
+
+cat <<'EOF' >> /etc/pulse/default.pa
+# automatically switch to newly-connected devices
+load-module module-switch-on-connect
+EOF
+
+cat <<'EOF' >> /etc/bluetooth/main.conf
+AutoEnable=true
+EOF
+
 ## Enable services
 read -n 1 -p "Enabling services..."
 systemctl enable NetworkManager sddm nordvpnd bluetooth
