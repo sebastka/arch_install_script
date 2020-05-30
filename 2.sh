@@ -45,9 +45,7 @@ umount /mnt
 
 ## Enable services
 read -n 1 -p "Enabling services..."
-systemctl enable NetworkManager
-systemctl enable sddm
-systemctl enable nordvpnd
+systemctl enable NetworkManager sddm nordvpnd bluetooth
 
 ## Exit chroot and umount
 read -n 1 -p "Exit..."
