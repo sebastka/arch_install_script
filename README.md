@@ -20,12 +20,13 @@
 * pikaur zsh git nano wget
 * gnu-free-fonts noto-fonts ttf-bitstream-vera ttf-croscore ttf-dejavu ttf-droid ttf-ibm-plex ttf-liberation ttf-meslo-nerd-font-powerlevel10k powerline-fonts
 * mesa xorg plasma-meta kde-applications-meta plasma-nm sddm vlc
-* firefox-beta-bin code nordvpn-bin fzf
+* firefox-beta-bin code nordvpn-bin fzf pulseaudio-alsa pulseaudio-bluetooth bluez-utils
 
 ## Services
 * NetworkManager
 * sddm
 * nordvpnd
+* bluetooth
 
 ## Features
 * Choose additionnal mirrors: kde-unstable, sublime-text;
