@@ -7,7 +7,7 @@ SECOND_OS="${DISK}4"
 SWAP="${DISK}5"
 ROOT="${DISK}6"
 
-USER=""
+USER="sebastian"
 HOSTNAME="archpc"
 
 COUNTRY=(Norway Sweden Denmark)

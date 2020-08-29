@@ -9,7 +9,7 @@ passwd
 visudo
 
 # User
-useradd -D -s/bin/zsh
+useradd -D -s/bin/fish
 useradd -m -G wheel $USER
 passwd $USER
 
@@ -29,8 +29,8 @@ vim /etc/hosts
 
 # GUI and tools
 read -n 1 -p "DE and tools..."
-mv -t "/home/${USER}/" /root/.zshrc /root/.p10k.zsh
-chown $USER:$USER "/home/${USER}/.zshrc" "/home/${USER}/.p10k.zsh"
+#mv -t "/home/${USER}/" /root/.zshrc /root/.p10k.zsh
+#chown $USER:$USER "/home/${USER}/.zshrc" "/home/${USER}/.p10k.zsh"
 su -c "sh /root/arch_install_script/3.sh" $USER
 
 # Set SDDM keyboard
@@ -44,20 +44,20 @@ grub-mkconfig -o /boot/grub/grub.cfg
 umount /mnt
 
 # Bluetooth and headset
-read -n 1 -p "Bluetooth and headset..."
+#read -n 1 -p "Bluetooth and headset..."
 
-cat <<'EOF' >> /etc/pulse/default.pa
+#cat <<'EOF' >> /etc/pulse/default.pa
 # automatically switch to newly-connected devices
-load-module module-switch-on-connect
-EOF
+#load-module module-switch-on-connect
+#EOF
 
-cat <<'EOF' >> /etc/bluetooth/main.conf
-AutoEnable=true
-EOF
+#cat <<'EOF' >> /etc/bluetooth/main.conf
+#AutoEnable=true
+#EOF
 
 ## Enable services
 read -n 1 -p "Enabling services..."
-systemctl enable NetworkManager sddm nordvpnd bluetooth
+systemctl enable iwd sddm nordvpnd bluetooth
 
 ## Exit chroot and umount
 read -n 1 -p "Exit..."

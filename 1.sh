@@ -8,8 +8,13 @@ source /root/arch_install_script/vars.sh
 
 ## Set up install system
 read -n 1 -p "Network and time..."
-#loadkeys no-latin1
-#wifi-menu
+loadkeys no-latin1
+iwctl
+
+read -n 1 -p "Testing internet connection..."
+ping archlinux.org
+read -n 1 -p "Continue if it worked"
+
 timedatectl set-ntp true
 
 # Setting up mirrors
@@ -48,7 +53,7 @@ rm -rI /mnt/boot/EFI/GRUB /mnt/boot/grub /mnt/boot/initramfs-linux-fallback.img 
 
 ## Installing base system
 read -n 1 -p "Installing base system..."
-pacstrap /mnt base base-devel linux linux-firmware zsh networkmanager vim nano man-pages man-db intel-ucode os-prober grub efibootmgr ntfs-3g wget reflector git
+pacstrap /mnt base base-devel linux linux-firmware fish iwd vim nano man-pages man-db intel-ucode os-prober grub efibootmgr ntfs-3g wget reflector git
 genfstab -U /mnt >> /mnt/etc/fstab
 
 for file in "/etc/pacman.conf" "/etc/pacman.d/mirrorlist"
